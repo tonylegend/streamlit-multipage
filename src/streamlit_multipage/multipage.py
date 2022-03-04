@@ -159,6 +159,7 @@ class MultiPage:
 
     def _render_next_previous(self, sidebar):
         left_column, middle_column, right_column = sidebar.columns(3)
+        page = self.__state_manager._read_page()
 
         if middle_column.button(self.reset_button):
             self.clear_cache(True, True, True)
@@ -173,10 +174,9 @@ class MultiPage:
             self.__state_manager.change_page(page)
 
     def _render_navbar(self, sidebar) -> None:
-        page = self.__state_manager._read_page()
 
         if not self.hide_navigation:
-            _render_next_previous(sidebar)
+            self._render_next_previous(sidebar)
 
         sidebar.markdown(
             f"""<h1 style="text-align:center;">{self.navbar_name}</h1>""",
