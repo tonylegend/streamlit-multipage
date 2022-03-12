@@ -1,11 +1,53 @@
-[build-system]
-requires = [
-    "streamlit"
-]
+# This project uses the experimental support for pyproject.toml
+# See https://discuss.python.org/t/help-testing-experimental-features-in-setuptools/13821
 
-build-backend = "setuptools.build_meta"
+[build-system]
+    requires = [
+        "setuptools @ git+https://github.com/pypa/setuptools@experimental/support-pyproject", 
+        "wheel"
+    ]
+    build-backend = "setuptools.build_meta"
+
+
+[project]
+    name = "streamlit_multipage"
+    authors = [
+        {name = "Yan Almeida"}, 
+        {name = "Ezequiel Leonardo Castaño", email = "castanoezequielleonardo@gmail.com"}
+    ]
+    dynamic = ["version"]
+    license = { file = "LICENSE" }
+    description = "A small package that allows you to create multi page streamlit apps"
+    classifiers = [
+        "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
+    ]
+    requires-python = ">=3.6"
+    dependencies = [
+        "streamlit"
+    ]
+
+
+[project.readme]
+    file = "README.md"
+    content-type = "text/markdown"
+
+
+[project.urls]
+    Homepage = "https://github.com/ELC/streamlit-multipage"
+    "Bug Tracker" = "https://github.com/ELC/streamlit-multipage/issues"
+
+
 
 [project.optional-dependencies]
-joblib = [
-    "joblib",
-]
+    joblib = [
+        "joblib",
+    ]
+
+
+[tool.setuptools.packages]
+    find.exclude = ["examples"]
+
+
+[tool.setuptools.dynamic]
+    version = {attr = "src.streamlit_multipage.__version__"}
