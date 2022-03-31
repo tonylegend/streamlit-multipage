@@ -276,16 +276,10 @@ class MultiPage:
 
     def run(self, avoid_collisions: bool = True) -> None:
         if avoid_collisions:
-            import hashlib
-
-            app_names = sorted(app.name for app in self.__apps)
-            names_concatenated = "".join(app_names).encode("utf-8")
-            cache_filename = (
-                hashlib.sha256(names_concatenated).hexdigest()[-10:] + ".pkl"
-            )
+            session_id = add_script_run_ctx().streamlit_script_run_ctx.session_id
+            cache_filename = f"{session_id}.pkl"
             self.__state_manager.cache_filename = cache_filename
-
-        self._run()
+            self._run()
 
     @classmethod
     def clear_cache(
