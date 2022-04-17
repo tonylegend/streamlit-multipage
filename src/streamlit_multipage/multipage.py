@@ -62,7 +62,9 @@ class StateManager:
 
     def _save(self, data: Dict[str, Any]) -> None:
         self.cache.mkdir(parents=True, exist_ok=True)
-        pickling.dump(data, self.cache_file)
+        with open(self.cache_file, "wb") as f:
+            # pickling.dump(data, self.cache_file)
+            pickling.dump(data, f)
 
     def _load(self) -> Dict[str, Any]:
         if not self.cache_file.exists():
@@ -117,7 +119,7 @@ class MultiPage:
     next_page_button: str = "Next Page"
     previous_page_button: str = "Previous Page"
     reset_button: str = "Reset Cache"
-    navbar_style = "Button"
+    navbar_style = "SelectBox"
     __state_manager: ClassVar[StateManager] = state
     hide_menu: bool = False
     hide_navigation: bool = False
